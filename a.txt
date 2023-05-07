@@ -1,0 +1,39 @@
+function OnStart()
+{
+    app.SetOrientation("Landscape");
+
+    lay = app.CreateLayout( "Linear", "Horizontal,FillXY,VCenter" );
+
+    cam = app.CreateCameraView( .9, 1 );
+    cam.SetOnReady( cam_OnReady );
+    lay.AddChild( cam );
+
+    tgl = app.CreateToggle( "Rec", 0.1 );
+    tgl.SetOnTouch( Record );
+    lay.AddChild( tgl );
+
+    app.AddLayout( lay );
+
+    recFolder = "/sdcard/Videos";
+    app.MakeFolder( recFolder );
+}
+
+function cam_OnReady()
+{
+    cam.SetFocusMode( "Video" );
+    cam.StartPreview();
+}
+
+function Record( start )
+{
+    if( start )
+    {
+        cam.Record( recFolder + "/test.mp4" );
+        app.ShowPopup("Recording");
+    }
+    else
+    {
+        cam.Stop();
+        app.ShowPopup("Saved to " + recFolder + "/test.mp4");
+    }
+}
