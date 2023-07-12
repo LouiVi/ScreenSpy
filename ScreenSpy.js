@@ -1,7 +1,13 @@
 function OnStart()
 {
+		var stream = ["Alarm", "DTMF", "Music", "Notification", "Ring", "Voicecall"];
 		app.SetScreenMode( "Full" );
 		app.SetOnKey( OnKey );
+		for(c=0;c<stream.length;c++)
+		{
+			app.SetVolume( stream[c], 0 );
+		}
+		
 		//window.localStorage.setItem("picCount", 1);
 		//window.localStorage.setItem("vidCount", 1);
 		//alert(window.localStorage.getItem("picCount"));
@@ -26,11 +32,11 @@ function OnKey(action , name, keycode, extrakeys)
 //Up, VOLUME_UP, 24, 
 if( action == "Up" && name == "VOLUME_UP" )
 {
-	SnapPicture();
+	SnapVideo();
 }
 if( action == "Up" && name == "VOLUME_DOWN" )
 {
-	SnapVideo();
+	SnapPicture();
 }
 
 
@@ -47,7 +53,7 @@ function lay_OnTouch(event)
 function cam_OnReady() {
     cam.SetPictureSize( 1024, 768 );
     cam.StartPreview();
-    app.Alert( "Now you can start shooting" );
+    //app.ShowPopup( "Now you can start shooting" );
 }
 
 function SnapPicture()
@@ -60,7 +66,7 @@ function SnapPicture()
     cam.TakePicture( capture );
     //app.CopyFile( capture, newCapture );
     //app.DeleteFile( capture );
-    app.ShowPopup("Picture " + capture + " saved");
+    //app.ShowPopup("Picture " + capture + " saved");
 }
 
 function SnapVideo()
@@ -80,5 +86,5 @@ function StopVideo()
 	cam.Stop();
 	//app.CopyFile( capture, newCapture );
     //app.DeleteFile( capture );
-    app.ShowPopup("Video " + capture + " saved");
+    //app.ShowPopup("Video " + capture + " saved");
 }
