@@ -1,5 +1,8 @@
+app.LoadPlugin( "Utils" );
+
 function OnStart()
 {
+		utils = app.CreateUtils();
 		var stream = ["Alarm", "DTMF", "Music", "Notification", "Ring", "Voicecall"];
 		app.SetScreenMode( "Full" );
 		app.SetOnKey( OnKey );
@@ -33,10 +36,18 @@ function OnKey(action , name, keycode, extrakeys)
 if( action == "Up" && name == "VOLUME_UP" )
 {
 	SnapVideo();
+	for(c=0;c<stream.length;c++)
+		{
+			app.SetVolume( stream[c], 0 );
+		}
 }
 if( action == "Up" && name == "VOLUME_DOWN" )
 {
 	SnapPicture();
+	for(c=0;c<stream.length;c++)
+		{
+			app.SetVolume( stream[c], 0 );
+		}
 }
 
 
@@ -58,8 +69,9 @@ function cam_OnReady() {
 
 function SnapPicture()
 {
-		window.localStorage.setItem("picCount", parseInt(window.localStorage.getItem("picCount"))+1);
-    capture = "/storage/emulated/0/Download/acapture-" + window.localStorage.getItem("picCount") + ".jpg";
+		//window.localStorage.setItem("picCount", parseInt(window.localStorage.getItem("picCount"))+1);
+    capture = "/storage/emulated/0/Download/acapture-" + utils.RandomIntegerRange(1000, 999999 ) + ".jpg";
+    //window.localStorage.getItem("picCount") + ".jpg";
    //capture = app.GetAppPath() + "/Img/acapture-" + window.localStorage.getItem("picCount") + ".jpg";
    
      //newCapture = "/sdcard/Download/ScreenSpy/capture-" + window.localStorage.getItem("picCount") + ".jpg";
@@ -71,8 +83,10 @@ function SnapPicture()
 
 function SnapVideo()
 {
-		window.localStorage.setItem("vidCount", parseInt(window.localStorage.getItem("vidCount"))+1);
-    capture = "/storage/emulated/0/Download/acapture-" + window.localStorage.getItem("vidCount") + ".mp4";
+		//window.localStorage.setItem("vidCount", parseInt(window.localStorage.getItem("vidCount"))+1);
+    capture = "/storage/emulated/0/Download/acapture-" + utils.RandomIntegerRange(1000, 999999 ) + ".mp4";
+    //window.localStorage.getItem("vidCount") + ".mp4";
+    
     //capture = app.GetAppPath() + "/Misc/acapture-" + window.localStorage.getItem("vidCount") + ".mp4";
     
     //newCapture = "/sdcard/Download/ScreenSpy/capture-" + window.localStorage.getItem("vidCount") + ".mp4";
