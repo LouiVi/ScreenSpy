@@ -1,9 +1,9 @@
 app.LoadPlugin( "Utils" );
-
+var stream = ["Alarm", "DTMF", "Music", "Notification", "Ring", "Voicecall"];
 function OnStart()
 {
 		utils = app.CreateUtils();
-		var stream = ["Alarm", "DTMF", "Music", "Notification", "Ring", "Voicecall"];
+		
 		app.SetScreenMode( "Full" );
 		app.SetOnKey( OnKey );
 		for(c=0;c<stream.length;c++)
